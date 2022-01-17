@@ -25,3 +25,9 @@ yarn build
 ```bash
 yarn lint
 ```
+
+### Deploy
+
+```bash
+bash deploy.sh
+```

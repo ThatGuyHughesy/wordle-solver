@@ -14,6 +14,12 @@ yarn install
 yarn serve
 ```
 
+### Generates letter scores based on frequency and position
+
+```bash
+node calculateLetterFrequencies.js
+```
+
 ### Compiles and minifies for production
 
 ```bash
@@ -26,7 +32,7 @@ yarn build
 yarn lint
 ```
 
-### Deploy
+### Deploys
 
 ```bash
 bash deploy.sh

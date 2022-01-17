@@ -1,7 +1,7 @@
 <template>
   <c-box
     w="100vw"
-    max-w="100vw"
+    max-w="100%"
     min-h="100vh"
     bg="#121213"
     p="4"

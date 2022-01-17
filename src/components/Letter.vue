@@ -60,6 +60,11 @@ export default {
     value: {
       type: Object,
       required: true
+    },
+
+    index: {
+      type: Number,
+      required: true
     }
   },
 
@@ -96,8 +101,12 @@ export default {
 
   methods: {
     letterOnly (event) {
-      const key = event.keyCode
-      if (key < 97 || key > 122) {
+      const charCode = event.charCode
+      if (charCode >= 97 && charCode <= 122) {
+        return true
+      } else if (charCode >= 65 && charCode <= 90) {
+        return true
+      } else {
         event.preventDefault()
       }
     },
@@ -111,9 +120,9 @@ export default {
 
     changeLetter (letter) {
       this.$emit('input', {
-        letter,
+        letter: letter.toLowerCase(),
         status: this.value.status
-      })
+      }, this.index)
     },
 
     changeStatus (status) {

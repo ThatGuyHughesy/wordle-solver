@@ -38,7 +38,6 @@
             @input="changed"
           />
           <c-button
-            v-if="i > 0"
             w="100%"
             mt="2"
             variant-color="gray"
@@ -70,7 +69,7 @@
       </c-box>
     </c-box>
     <c-box
-      v-if="possibleWords.length"
+      v-if="solved"
       mt="8"
     >
       <c-divider
@@ -78,6 +77,7 @@
         color="#3a3a3c"
       />
       <c-text
+        v-if="possibleWords.length"
         font-size="2xl"
         font-weight="800"
         color="white"
@@ -89,6 +89,15 @@
         >
           {{ possibleWords.length }}
         </c-text> Possible Word(s)
+      </c-text>
+      <c-text
+        v-else
+        font-size="2xl"
+        font-weight="800"
+        color="white"
+        mb="2"
+      >
+        No Possible Words! &#129327;
       </c-text>
       <c-list>
         <c-list-item
@@ -132,7 +141,8 @@ export default {
     return {
       guesses: [],
       possibleWords: [],
-      solving: false
+      solving: false,
+      solved: false
     }
   },
 
@@ -152,6 +162,7 @@ export default {
   methods: {
     changed () {
       this.possibleWords = []
+      this.solved = false
     },
 
     add () {
@@ -176,10 +187,12 @@ export default {
     remove (index) {
       this.$delete(this.guesses, index)
       this.possibleWords = []
+      this.solved = false
     },
 
     solve () {
       this.solving = true
+      this.solved = false
 
       const absent = this.guesses.map(g => g.filter(l => l.status === 'ABSENT').map(a => a.letter)).flat().filter((value, index, self) => self.indexOf(value) === index)
       const present = new Array(5)
@@ -239,6 +252,7 @@ export default {
         return 0
       }).map(s => s[0])
 
+      this.solved = true
       this.solving = false
     }
   }

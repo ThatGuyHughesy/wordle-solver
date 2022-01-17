@@ -9,6 +9,7 @@
         ref="letters"
         :key="'letter-' + i"
         v-model="value[i]"
+        :index="i"
         @input="filled"
         @paste="onPaste"
       />
@@ -36,7 +37,12 @@ export default {
   },
 
   methods: {
-    filled () {
+    filled (_, index) {
+      if (index < 4) {
+        setTimeout(() => {
+          this.$refs.letters[index + 1].$el.children[0].focus()
+        }, 200)
+      }
       this.$emit('input', this.value)
     },
 
